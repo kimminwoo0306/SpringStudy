@@ -56,7 +56,7 @@ public class MainClass {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		ApplicationContext app=new ClassPathXmlApplicationContext("app.xml");
-		MainClass mc=(MainClass)app.getBean("mainClass");
+	/*	MainClass mc=(MainClass)app.getBean("mainClass");
 		while(true)
 		{
 			Scanner scan=new Scanner(System.in);
@@ -75,6 +75,18 @@ public class MainClass {
 			{
 				System.out.println(vo.getRank()+" "+vo.getTitle()+" "+vo.getGenre()+" "+vo.getDirector());
 			}
+		}*/
+		NewsManager n=(NewsManager)app.getBean("newsManager");
+		Scanner scan=new Scanner(System.in);
+		System.out.println("검색어 입력:");
+		String fd=scan.next();
+		List<NewsVO> list=n.newsListData(fd);
+		for(NewsVO vo:list)
+		{
+			System.out.println(vo.getTitle());
+			System.out.println(vo.getDescription());
+			System.out.println(vo.getPubDate());
+			System.out.println("============================================================");
 		}
 	}
 
