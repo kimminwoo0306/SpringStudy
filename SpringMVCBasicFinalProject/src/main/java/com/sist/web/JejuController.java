@@ -4,8 +4,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.*;
+
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import com.sist.dao.*;
 import com.sist.vo.*;
 @Controller
@@ -14,7 +20,7 @@ public class JejuController {
 	private JejuDAO dao;
 	//jeju/list.do?page=
 	@GetMapping("jeju/list.do")
-	public String jeju_list(String page,Model model)
+	public String jeju_list(String page,Model model, HttpServletRequest request)
 	{
 		if(page==null)
 			page="1";
@@ -49,7 +55,41 @@ public class JejuController {
 		model.addAttribute("startPage", startPage);
 		model.addAttribute("endPage", endPage);
 		model.addAttribute("list", list);
+		
+		List<JejuLocationVO> cList=new ArrayList<JejuLocationVO>();
+		//쿠키 관련 코드
+		Cookie[] cookies=request.getCookies();
+		if(cookies!=null)
+		{
+			for(int i=cookies.length-1; i>=0;i--)
+			{
+				if(cookies[i].getName().startsWith("jeju"))
+				{
+					String no=cookies[i].getValue();
+					JejuLocationVO vo=dao.jejuDetailData(Integer.parseInt(no));
+					cList.add(vo);
+				}
+			}
+		}
+		model.addAttribute("cList", cList);
 		return "jeju/list";
+	}
+	// jeju/detail_before.do?no=${vo.no}
+	/*
+	 * String no=request.getParameter("no")
+	 * Integer.parseInt(no)
+	 */
+	// jeju/detail_before.do?no=${vo.no }
+	@GetMapping("jeju/detail_before.do")
+	public String jeju_detail_before(String no, HttpServletResponse response,RedirectAttributes ra)
+	{
+		Cookie cookie=new Cookie("jeju"+no, no);
+		cookie.setPath("/");
+		cookie.setMaxAge(60*60*24);
+		//브라우저 전송
+		response.addCookie(cookie);
+		ra.addAttribute("no", no);
+		return "redirect:detail.do";
 	}
 	// jeju/detail.do?no=${vo.no }
 	@GetMapping("jeju/detail.do")

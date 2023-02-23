@@ -2,11 +2,16 @@ package com.sist.web;
 
 import java.util.*;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.sist.dao.SeoulDAO;
 import com.sist.vo.FoodVO;
@@ -18,7 +23,7 @@ public class SeoulController {
 	private SeoulDAO dao;
 	
 	@GetMapping("seoul/list.do")
-	public String seoul_list(String page,Model model)
+	public String seoul_list(String page,Model model, HttpServletRequest request)
 	{
 		if(page==null)
 			page="1";
@@ -44,7 +49,34 @@ public class SeoulController {
 		model.addAttribute("endPage", endPage);
 		model.addAttribute("list", list);
 		
+		//쿠키 관련
+		List<SeoulLocationVO> sList=new ArrayList<SeoulLocationVO>();
+		Cookie[] cookies=request.getCookies();
+		if(cookies!=null)
+		{
+			for(int i=cookies.length-1; i>=0; i--)
+			{
+				if(cookies[i].getName().startsWith("seoul"))
+				{
+					String no=cookies[i].getValue();
+					SeoulLocationVO vo=dao.seoulDetailData(Integer.parseInt(no));
+					sList.add(vo);
+				}
+			}
+		}
+		model.addAttribute("sList", sList);
 		return "seoul/list";
+	}
+	@GetMapping("seoul/detail_before.do")
+	public String seoul_detail_before(String no, HttpServletResponse response,RedirectAttributes ra)
+	{
+		Cookie cookie=new Cookie("seoul"+no, no);
+		cookie.setPath("/");
+		cookie.setMaxAge(60*60^72);
+		// 브라우저 전송
+		response.addCookie(cookie);
+		ra.addAttribute("no", no);
+		return "redirect:detail.do";
 	}
 	
 	@GetMapping("seoul/detail.do")
