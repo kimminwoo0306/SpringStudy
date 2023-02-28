@@ -6,19 +6,20 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import java.util.*;
-import com.sist.mapper.*;
-import com.sist.vo.*;
 import com.sist.dao.*;
-
+import com.sist.vo.*;
 @Controller
 public class JejuController {
-	@Autowired
-	private JejuDAO dao;
-	
-	@GetMapping("jeju/location.do")
-	public String jeju_location(String page, Model model)
-	{
-		if(page==null)
+   @Autowired
+   private JejuDAO dao;
+   
+   @Autowired
+   private ReplyDAO rdao;
+   
+   @GetMapping("jeju/location.do")
+   public String jeju_location(String page,Model model)
+   {
+	   if(page==null)
 			page="1";
 		int curpage=Integer.parseInt(page);
 		Map map=new HashMap();
@@ -27,7 +28,7 @@ public class JejuController {
 		List<JejuLocationVO> sList=dao.jejuLocationListData(map);
 		int totalpage=dao.jejuTotalPage();
 		
-		final int BLOCK=10;
+		final int BLOCK=5;
 		int startPage=((curpage-1)/BLOCK*BLOCK)+1;
 		int endPage=((curpage-1)/BLOCK*BLOCK)+BLOCK;
 		
@@ -40,12 +41,12 @@ public class JejuController {
 		model.addAttribute("endPage", endPage);
 		model.addAttribute("sList", sList);
 		model.addAttribute("main_jsp", "../jeju/location.jsp");
-		return "main/main";
-	}
-	@GetMapping("jeju/food.do")
-	public String jeju_food(String page, Model model)
-	{
-		if(page==null)
+	   return "main/main";
+   }
+   @GetMapping("jeju/food.do")
+   public String jeju_food(String page,Model model)
+   {
+	   if(page==null)
 			page="1";
 		int curpage=Integer.parseInt(page);
 		Map map=new HashMap();
@@ -67,6 +68,19 @@ public class JejuController {
 		model.addAttribute("endPage", endPage);
 		model.addAttribute("sList", sList);
 		model.addAttribute("main_jsp", "../jeju/food.jsp");
-		return "main/main";
-	}
+	   return "main/main";
+   }
+   // food_detail.do?no=${vo.no }&type=2
+   @GetMapping("jeju/food_detail.do")
+   public String jeju_food_detail(int fno,int type,Model model)
+   {
+	   JejuFoodVO vo=dao.jejuDetailData(fno);
+	   model.addAttribute("vo", vo);
+	   model.addAttribute("main_jsp", "../jeju/food_detail.jsp");
+	   
+	   // 댓글 
+	   List<ReplyVO> rList=rdao.replyListData(fno, type);
+	   model.addAttribute("rList", rList);
+	   return "main/main";
+   }
 }

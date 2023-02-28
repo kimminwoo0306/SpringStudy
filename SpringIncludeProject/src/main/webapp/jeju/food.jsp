@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -9,25 +9,25 @@
 </head>
 <body>
   <c:forEach var="vo" items="${sList }">
-	  	<div class="col-md-3">
+      <div class="col-md-3">
 	    <div class="thumbnail">
-	      <a href="../jeju/food_detail.do?no=${vo.no }">
-	        <img src="${vo.poster }" style="width:300%; height: 220px">
+	      <a href="../jeju/food_detail.do?fno=${vo.no }&type=2">
+	        <img src="${vo.poster }" style="width:300px;height: 220px">
 	        <div class="caption">
 	          <p style="font-size: 8px">${vo.title }</p>
 	        </div>
 	      </a>
 	    </div>
-	  	</div>
+	  </div>
   </c:forEach>
   <div style="height: 10px"></div>
   <div class="text-center">
     <ul class="pagination">
       <c:if test="${startPage>1 }">
-	  <li><a href="../jeju/food.do?page=${startPage-1 }">&lt;</a></li>
+	   <li><a href="../jeju/food.do?page=${startPage-1 }">&lt;</a></li>
 	  </c:if>
 	  <c:forEach var="i" begin="${startPage }" end="${endPage }">
-		  <li ${i==curpage?"class=active":"" }><a href="../jeju/food.do?page=${i }">${i }</a></li>
+	   <li ${i==curpage?"class=active":"" }><a href="../jeju/food.do?page=${i }">${i }</a></li>
 	  </c:forEach>
 	  <c:if test="${endPage<totalpage }">
 	  <li><a href="../jeju/food.do?page=${endPage+1 }">&gt;</a></li>
