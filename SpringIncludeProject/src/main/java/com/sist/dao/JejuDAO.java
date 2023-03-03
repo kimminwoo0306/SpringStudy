@@ -50,4 +50,10 @@ public class JejuDAO {
 	{
 		return mapper.jejuDetailData(no);
 	}
+	
+//	@Select("SELECT no, title,poster,num from JejuFood WHERE no=#{no}")
+	public List<JejuFoodVO> jejuFoodVueListData(Map map)
+	{
+		return mapper.jejuFoodVueListData(map);
+	}
 }

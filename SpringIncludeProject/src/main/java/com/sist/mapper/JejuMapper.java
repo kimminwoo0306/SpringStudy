@@ -56,4 +56,7 @@ public interface JejuMapper {
 	@Select("SELECT * FROM jejuFood "
 			+"WHERE no=#{no}")
 	public JejuFoodVO jejuDetailData(int no);
+	
+	@Select("SELECT no, title,poster from JejuFood")
+	public List<JejuFoodVO> jejuFoodVueListData(Map map);
 }

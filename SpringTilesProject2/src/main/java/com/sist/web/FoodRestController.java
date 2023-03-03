@@ -81,4 +81,86 @@ public class FoodRestController {
 		obj.put("menu", vo.getMenu());
 		return obj.toJSONString();
 	}
+	@GetMapping(value="food/category_vue.do",produces="text/plain; charset=utf-8")
+	public String category_vue(int no)
+	{
+		Map map=new HashMap();
+		map.put("no", no);
+		List<CategoryVO> list=dao.categoryVueData(map);
+		
+		// JavaScript => 인식[]
+		JSONArray arr=new JSONArray(); // [] JSONObject {} ==> [{},{},{},{}..]
+		for(CategoryVO vo:list)
+		{
+			JSONObject obj=new JSONObject();
+			obj.put("cno",vo.getCno());
+			obj.put("title", vo.getTitle());
+			obj.put("poster", vo.getPoster());
+			arr.add(obj);
+		}
+		return arr.toJSONString();
+
+	}
+	@GetMapping(value="food/food_list_vue.do",produces="text/plain;charset=utf-8")
+	   public String food_list_vue(int no) // params:{no:cno} => 매개변수 no
+	   {
+	      List<FoodVO> list=dao.foodListData(no);
+	      CategoryVO cvo=dao.categoryInfoData(no);
+	      JSONArray arr=new JSONArray();
+	      int i=0;
+	      for(FoodVO vo:list)
+	      {
+	         JSONObject obj=new JSONObject();
+	         obj.put("fno",vo.getFno());
+	         obj.put("name",vo.getName());
+	         obj.put("tel",vo.getTel());
+	         
+	         String address=vo.getAddress();
+	         address=address.substring(0,address.lastIndexOf("지")).trim();
+	         
+	         obj.put("address",address);
+	         obj.put("type",vo.getType());
+	         obj.put("score",vo.getScore());
+
+	         String poster=vo.getPoster();
+	         poster=poster.substring(0,poster.indexOf("^")).replace("#", "&");
+	         
+	         obj.put("poster",poster);
+	         if(i==0)
+	         {
+	            obj.put("title", cvo.getTitle());
+	            obj.put("subject", cvo.getSubject());
+	         }
+	         arr.add(obj);
+	         i++;
+	      }
+	      return arr.toJSONString(); 
+	   }
+	
+	//axios.get axios.post
+	@GetMapping(value="food/food_detail_vue.do",produces = "text/plain;charset=utf-8")
+	// text/html, text/plain, text/xml(X)
+	
+	/*
+	 * private int fno,cno,good,soso,bad,count;
+	    private double score;
+	    private String poster,name,address,tel,type,price,parking,menu,time;
+	 */
+	public String food_detail_vue(int fno)
+	{
+		FoodVO vo=dao.foodDetailData(fno);
+		JSONObject obj=new JSONObject();
+		obj.put("fno", vo.getFno());
+		obj.put("score", vo.getScore());
+		obj.put("name", vo.getName());
+		obj.put("tel", vo.getTel());
+		obj.put("type", vo.getType());
+		obj.put("price", vo.getPrice());
+		obj.put("parking", vo.getParking());
+		obj.put("menu", vo.getMenu());
+		obj.put("time", vo.getTime());
+		obj.put("address", vo.getAddress());
+		obj.put("poster", vo.getPoster());
+		return obj.toJSONString();
+	}
 }
