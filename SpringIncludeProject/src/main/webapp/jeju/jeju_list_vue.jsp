@@ -26,70 +26,62 @@ h1{
 </head>
 <body>
    <div class="container-fluid">
-      <div class="col-sm-3">
-        <div class="jumbotron">
-        </div>
-        
-        <table class="table" v-for="vo in jeju_list">
-				<tr>
-								<td width=30% class="text-center" rowspan="4"><img
-									:src="vo.poster" style="width: 100%" class="img-rounded ddd"
-									v-on:click="jejuDetail(vo.no)"></td>
-								<td width=70%>
-									<h3 v-on:click="jejuDetail(vo.no)" class="ddd">
-										{{vo.title }}
-									</h3>
-								</td>
-				</tr>
-			</table>
-			</div>
+      <div class="col-sm-6">
+         <div class="col-md-3" v-for="vo in jeju_list">
+          <div class="thumbnail">
+              <img :src="vo.poster" style="width:200px;height: 150px" v-on:click="jejuDetail(vo.no)">
+              <div class="caption">
+                <p>{{vo.title}}</p>
+              </div>
+         </div>
+       </div>
+
 			</div>
 			<div class="col-sm-5" v-show="isShow">
-			<table class="table">
-				<tr>
-
-					<td v-for="img in posters"><img :src="img"
-						style="width: 100%"></td>
-
-				</tr>
-			</table>
 			<div style="height: 20px"></div>
-			<table class="table">
-				<tr>
-					<td colspan="2">
-						<h3>
-							{{vo1.title }}&nbsp;<span style="color: orange">{{vo1.score
-								}}</span>
-						</h3>
-					</td>
-				</tr>
-				<tr>
-					<th width=10%>주소</th>
-					<td width=90%>{{vo1.addr }}</td>
-				</tr>
-				<tr>
-					<th width=10%>전화</th>
-					<td width=90%>{{vo1.tel }}</td>
-				</tr>
-				<tr>
-					<th width=10%>음식종류</th>
-					<td width=90%>{{vo1.type }}</td>
-				</tr>
-				<tr>
-					<th width=10%>가격대</th>
-					<td width=90%>{{vo1.price }}</td>
-				</tr>
-				<tr>
-					<th width=10%>주차</th>
-					<td width=90%>{{vo1.parking }}</td>
-				</tr>
-				<tr>
-					<th width=10%>영업시간</th>
-					<td width=90%>{{vo1.time }}</td>
-				</tr>
-
+			<table>
+			<tr>
+	            <td ><img :src="vo1.poster" style="width: 100%" class="img-rounded ddd"></td>
+	        </tr>
+			
 			</table>
-		</div>
+			 <div style="height: 20px"></div>
+        <div class="row">
+         <div class="col-sm-8">
+           <table class="table">
+            <tr>
+              <td colspan="2">
+               <h3>{{vo1.title }}&nbsp;<span style="color:orange">{{vo1.score }}</span></h3>
+              </td>
+            </tr>
+            <tr>
+              <th width=10%>주소</th>
+              <td width=90%>{{vo1.addr }}
+                <br>
+                <sub>지번:{{vo1.addr2 }}</sub>
+              </td>
+            </tr>
+            <tr>
+              <th width=10%>전화</th>
+              <td width=90%>{{vo1.tel }}</td>
+            </tr>
+            <tr>
+              <th width=10%>음식종류</th>
+              <td width=90%>{{vo1.type }}</td>
+            </tr>
+            <tr>
+              <th width=10%>주차</th>
+              <td width=90%>{{vo1.parking }}</td>
+            </tr>
+            <tr>
+              <th width=10%>영업시간</th>
+              <td width=90%>{{vo1.time }}</td>
+            </tr>
+            </table>
+         </div>
+       </div>
+     </div>
+
     <script>
      new Vue({
     	 el:'.container-fluid',
@@ -101,14 +93,11 @@ h1{
     	 mounted:function(){
     		 let _this=this
     		 axios.get('http://localhost/web/jeju/jeju_list_vue.do',{
-    			 params:{
-    			 }
     		 // then => success:function(response)
     		 }).then(function(response){
     			 // response=>json
     			 console.log(response.data)
-    			 _this.jeju_list=response.data;
-    			 
+    			 _this.jeju_list=response.data;	 
     		 })
     	 },
     	 // http://localhost/web/food/category_vue.do?no=1
@@ -125,8 +114,6 @@ h1{
         			 // response=>json
         			 console.log(response.data)
         			 _this.vo1=response.data;
-        			 _this.posters = _this.vo1.poster
-					 _this.menus = _this.vo1.menu
         		 })
     		 }
     		 

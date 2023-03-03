@@ -54,13 +54,13 @@ public class JejuRestController {
 		JejuFoodVO vo=dao.jejuDetailData(no);
 		JSONObject obj=new JSONObject();
 		obj.put("no", vo.getNo());
-		obj.put("image", vo.getImage());
+		obj.put("poster", vo.getPoster());
 		obj.put("addr", vo.getAddr());
 		obj.put("tel", vo.getTel());
 		obj.put("type", vo.getType());
 		obj.put("parking", vo.getParking());
 		obj.put("time", vo.getTime());
-		obj.put("Menu", vo.getMenu());
+		obj.put("menu", vo.getMenu());
 		obj.put("score", vo.getScore());
 		obj.put("hit", vo.getHit());
 		return obj.toJSONString();
