@@ -1,9 +1,11 @@
 package com.sist.dao;
 import java.util.*;
 
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.SelectKey;
+import org.apache.ibatis.annotations.Update;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -38,5 +40,56 @@ public class BoardDAO {
 	public void boardInsert(BoardVO vo)
 	{
 		mapper.boardInsert(vo);
+	}
+	
+	// 조회수
+/*	@Update("UPDATE spring_board SET "
+			+"hit=hit+1 "
+			+"WHERE no=#{no}")*/
+//	public void boardHitIncrement(int no);
+	// detail
+/*	@Select("SELECT no,name,subject,content,TO_CHAR(regdate, 'YYYY-MM-DD') as dbday,hit "
+			+"FROM spring_board "
+			+"WHERE no=#{no}") */
+	public BoardVO boardDetailData(int no)
+	{
+		mapper.boardHitIncrement(no);
+		return mapper.boardDetailData(no);
+	}
+	
+/*	 @Select("SELECT pwd FROM spring_board "
+			  +"WHERE no=#{no}")
+	  public String boardGetPassword(int no);
+	  
+	  @Update("UPDATE spring_board SET "
+			 +"name=#{name},subject=#{subject},content=#{content} "
+			 +"WHERE no=#{no}")
+	  public void boardUpdate(BoardVO vo);
+	  
+	  @Delete("DELETE FROM spring_board "
+			  +"WHERE no=#{no}")
+	  public void boardDelete(int no); */
+	public String boardUpdate(BoardVO vo)
+	{
+		String res="no";
+		String db_pwd=mapper.boardGetPassword(vo.getNo());
+		if(db_pwd.equals(vo.getPwd()))
+		{
+			mapper.boardUpdate(vo);
+			res="yes";
+		}
+		return res;
+	}
+	
+	public String boardDelete(int no, String pwd)
+	{
+		String res="no";
+		String db_pwd=mapper.boardGetPassword(no);
+		if(db_pwd.equals(pwd))
+		{
+			mapper.boardDelete(no);
+			res="yes";
+		}
+		return res;
 	}
 }

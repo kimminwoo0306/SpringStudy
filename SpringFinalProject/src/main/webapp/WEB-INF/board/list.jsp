@@ -32,16 +32,16 @@
      <tbody>
        <tr v-for="vo in board_list">
         <td width=10% class="text-center">{{vo.no}}</td>
-        <td width=45%>{{vo.subject}}</td>
+        <td width=45%><a :href="'../board/detail.do?no='+vo.no">{{vo.subject}}</a></td>
         <td width=15% class="text-center">{{vo.name}}</td>
         <td width=20% class="text-center">{{vo.dbday}}</td>
         <td width=15% class="text-center">{{vo.hit}}</td>
       </tr>  
       <tr>
         <td colspan="5" class="text-right">
-          <input type=button value="이전" class="btn btn-sm btn-danger">
+          <input type=button value="이전" class="btn btn-sm btn-danger" v-on:click="prev()">
             {{curpage}} page / {{totalpage}} pages
-          <input type=button value="다음" class="btn btn-sm btn-warning">
+          <input type=button value="다음" class="btn btn-sm btn-warning" v-on:click="next()">
         </td>
       </tr>
      </tbody>  
@@ -72,6 +72,14 @@
     			  _this.curpage=response.data[0].curpage
     			  _this.totalpage=response.data[0].totalpage
     		  })
+  		 },
+  		 prev:function(){
+  			 this.curpage=this.curpage>1?this.curpage-1:this.curpage
+  			 this.send()
+  		 },
+  		 next:function(){
+  			this.curpage=this.curpage<this.totalpage?this.curpage+1:this.curpage
+  		  	this.send()
   		 }
   	 }
   })
