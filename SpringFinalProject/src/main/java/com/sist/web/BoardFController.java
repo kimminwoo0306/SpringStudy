@@ -9,7 +9,7 @@ import com.sist.dao.BoardDAO;
 import com.sist.vo.BoardVO;
 
 @Controller
-public class BoardController {
+public class BoardFController {
 	@Autowired
 	private BoardDAO dao;
 	
