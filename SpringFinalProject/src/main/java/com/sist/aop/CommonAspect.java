@@ -32,7 +32,7 @@ import com.sist.openapi.*;
 public class CommonAspect {
 	@Autowired
 	private FoodDAO dao;
-	@Autowired
+/*	@Autowired
 	private NaverNewsManager mgr;
 	@Around("execution(* com.sist.web.*Controller.*(..))")
 	public Object around(ProceedingJoinPoint jp) throws Throwable
@@ -62,7 +62,7 @@ public class CommonAspect {
 		
 		List<NewsVO> nList=mgr.newsListData("맛집");
 		request.setAttribute("nList", nList);
-	}
+	}*/
 }
 
 
