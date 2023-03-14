@@ -60,4 +60,30 @@ public class RecipeService {
 	{
 		return rmapper.chefMakeRecipeData(chef);
 	}
+	
+	// 레시피상세 갯수
+///	@Select("SELECT COUNT(*) FROM recipeDetail "
+//			+ "WHERE no=#{no}")
+	public int recipeDetailCount(int no)
+	{
+		return rmapper.recipeDetailCount(no);
+	}
+	// 레시피 상세 정보
+//	@Select("SELECT * FROM recipeDetail "
+//			+ "WHERE no=#{no}")
+	public RecipeDetailVO recipeDetailData(int no)
+	{
+		return rmapper.recipeDetailData(no);
+	}
+	
+/*	@Select("SELECT no,goods_name,goods_price,goods_poster,rownum "
+			+ "FROM (SELECT no,goods_name,goods_price,goods_poster "
+			+ "FROM goods_all "
+			+ "WHERE goods_name LIKE '%'||#{goods_name}||'%' "
+			+ "ORDER BY TO_NUMBER(REPLACE(REPLACE(goods_price, ',', ''),'원','')) ASC) "
+			+ "WHERE rownum <=3") */
+	public List<GoodsVO> goodsListData(String goods_name)
+	{
+		return rmapper.goodsListData(goods_name);
+	}
 }
