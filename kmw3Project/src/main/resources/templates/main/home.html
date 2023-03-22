@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<div class="wrapper row3">
+  <div id="slider" class="clear"> 
+    <!-- ################################################################################################ -->
+    <div class="flexslider basicslider">
+      <ul class="slides">
+        <li><a href="#"><img class="radius-10" src="images/camp1.jpg" style="width:978px;height:400px"></a></li>
+        <li><a href="#"><img class="radius-10" src="images/camp2.jpg" style="width:978px;height:400px"></a></li>
+        <li><a href="#"><img class="radius-10" src="images/camp3.jpg" style="width:978px;height:400px"></a></li>
+      </ul>
+    </div>
+    <!-- ################################################################################################ --> 
+  </div>
+</div>
+<!-- ################################################################################################ --> 
+<!-- ################################################################################################ --> 
+<!-- ################################################################################################ -->
+<div class="wrapper row3">
+  <main class="container clear"> 
+    <!-- main body --> 
+    <!-- ################################################################################################ -->
+    <ul class="nospace group btmspace-80">
+      <li class="one_third first">
+        <article class="service"><i class="icon fa fa-ambulance"></i>
+          <h6 class="heading"><a th:href="@{/camp/camp_find}">캠핑장검색</a></h6>
+          <p>사용자가 찾고싶은 캠핑장 or 야영장을 지역 이름으로 검색해보세요!!</p>
+          <footer><a href="#">Read More &raquo;</a></footer>
+        </article>
+      </li>
+      <li class="one_third">
+        <article class="service"><i class="icon fa fa-h-square"></i>
+          <h6 class="heading"><a th:href="@{/camp/camp_list}">캠핑장</a></h6>
+          <p>캠핑장과 야영장을 이곳에서 구경해보세요!</p>
+          <footer><a href="#">Read More &raquo;</a></footer>
+        </article>
+      </li>
+      <li class="one_third">
+        <article class="service"><i class="icon fa fa-hospital-o"></i>
+          <h6 class="heading"><a th:href="@{/board/board_list}">커뮤니티</a></h6>
+          <p>게시판에서 캠핑장, 야영장의 정보를 공유해보세요!!</p>
+          <footer><a href="#">Read More &raquo;</a></footer>
+        </article>
+      </li>
+    </ul>
+    <!-- ################################################################################################ -->
+    <h2 class="sectiontitle">캠핑장 인기 순위(Top20)</h2>
+    <!-- ################################################################################################ -->
+    <div class="flexslider carousel basiccarousel btmspace-80">
+      <ul class="slides">
+        <li th:each="vo:${cList}">
+          <figure><img class="radius-10 btmspace-10" th:src="${vo.image}" style="width:320px;height:185px;">
+            <figcaption><a th:href="@{/camp/camp_detail(cno=${vo.cno})}" th:text="${vo.name}"></a></figcaption>
+          </figure>
+        </li>
+      </ul>
+    </div>
+    <!-- / main body -->
+    <div class="clear"></div>
+  </main>
+</div>
+</body>
+</html>

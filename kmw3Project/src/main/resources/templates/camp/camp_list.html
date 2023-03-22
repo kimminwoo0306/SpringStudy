@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+</head>
+<body>
+<div class="wrapper row3">
+  <main class="container clear"> 
+	<h3>캠핑/야영장</h3>
+   <div class="row">
+     <table class="table">
+       <tr>
+         <td>
+           <table class="table" th:each="vo:${cList}">
+             <tr>
+               <td class="text-center" width="30%" rowspan="4">
+                 <a th:href="@{/camp/camp_detail(cno=${vo.cno})}">
+                 <img th:src="${vo.image}" style="width: 320px;height: 150px" class="img-rounded">
+                 </a>
+               </td>
+               <td width=70%><a th:href="@{/camp/camp_detail(cno=${vo.cno})}"><span th:text="${vo.name}"></span></a></td>
+             </tr>
+
+           </table>
+         </td>
+       </tr>
+     </table>
+   </div>
+   <div class="row">
+   <div class="text-center">
+   		<nav class="pagination">
+			<ul>
+			     <li th:if="${startPage>1}"><a th:href="@{/camp/camp_list(page=${startPage-1},address=${address})}">&laquo; Previous</a></li>
+			     <li th:class="${curpage==i}?'current':''" th:each="i:${#numbers.sequence(startPage,endPage)}"><a th:href="@{/camp/camp_list(page=${i},address=${address})}" th:text="${i}"></a></li>
+			     <li th:if="${endPage<totalpage}"><a th:href="@{/camp/camp_list(page=${endPage+1},address=${address})}">Next &raquo;</a></li>
+			</ul>
+		</nav>
+   </div>
+   </div>
+  </main>
+</div>
+</body>
+</html>

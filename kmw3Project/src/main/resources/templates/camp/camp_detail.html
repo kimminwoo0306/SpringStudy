@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+</head>
+<body>
+<div class="wrapper row3">
+  <main class="container clear"> 
+    <table class="table">
+     <tr>
+       <td>
+        <img th:src="${vo.image}" style="width: 960px; height:300px">
+       </td>
+     </tr>
+    </table>
+    <div style="height: 10px"></div>
+    <table class="table">
+      <tr>
+       <td width=20% class="text-center" colspan="2"><h3 th:text="${vo.name}" style="display:inline;float: left"></td>
+      </tr>
+      <tr>
+       <th width=20% class="text-center">주소</th>
+       <td width=80% th:text="${vo.address}"></td>
+      </tr>
+      <tr>
+       <th width=20% class="text-center">전화</th>
+       <td width=80% th:text="${vo.tel}"></td>
+      </tr>
+      <tr>
+       <th width=20% class="text-center">캠핑타입</th>
+       <td width=80% th:text="${vo.camp_type}"></td>
+      </tr>
+      <tr>
+       <th width=20% class="text-center">캠핑지역</th>
+       <td width=80% th:text="${vo.camp_env}"></td>
+      </tr>
+      <tr>
+       <th width=20% class="text-center">홈페이지</th>
+       <td width=80% th:text="${vo.homepage}"></td>
+      </tr>
+      <tr>
+       <th width=20% class="text-center">운영계절</th>
+       <td width=80% th:text="${vo.period}"></td>
+      </tr>
+      <tr>
+        <td colspan="2" class="text-right">
+         <input type="button" class="btn btn-sm btn-danger" value="목록"
+          onclick="javascript:history.back()">
+        </td>
+      </tr>
+    </table>
+  </main>
+</div>
+</body>
+</html>
