@@ -7,9 +7,7 @@ import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
 import com.sist.vo.*;
-//private int ano,hit,group_id,group_step,group_tab;
-//private String subject,content,pwd,ask_state,id,dbday;
-//private Date regdate;
+
 
 public interface AskMapper {
 	// 목록 출력 (로그인안했을경우)

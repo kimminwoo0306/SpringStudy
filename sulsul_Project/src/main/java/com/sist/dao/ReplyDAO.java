@@ -38,24 +38,6 @@ public class ReplyDAO {
 		} catch (Exception e) {}
 	}
 	
-	// CRUD (SELECT, INSERT, UPDATE, DELETE
-	
-	
-/*
- *  create or replace NONEDITIONABLE PROCEDURE sul_replyList(
-	   pRno sul_all_reply_2_2.rno%TYPE,
-	   pCate_no sul_all_reply_2_2.cate_no%TYPE,
-	   pResult OUT SYS_REFCURSOR
-	)
-	IS
-	BEGIN
-	  OPEN pResult FOR
-	    SELECT no,rno,cate_no,id,name,msg,regdate,TO_CHAR(regdate,'YYYY-MM-DD') as dbday
-	    FROM sul_all_reply_2_2
-	    WHERE rno=pRno AND cate_no=pCate_no
-	    ORDER BY no DESC;
-	END;
-*/
 	public List<AllReplyVO> sul_replyList(int rno, int cate_no) {
 		List<AllReplyVO> list = new ArrayList<AllReplyVO>();
 		try {
@@ -88,21 +70,6 @@ public class ReplyDAO {
 		}
 		return list;
 	}
-	
-/*
-	create or replace NONEDITIONABLE PROCEDURE sul_replyInsert(
-	   pRno sul_all_reply_2_2.rno%TYPE,
-	   pCate_no sul_all_reply_2_2.cate_no%TYPE,
-	   pId sul_all_reply_2_2.id%TYPE,
-	   pName sul_all_reply_2_2.name%TYPE,
-	   pMsg sul_all_reply_2_2.msg%TYPE
-	)
-	IS
-	BEGIN 
-	  INSERT INTO sul_all_reply_2_2 VALUES(sar_no_seq.nextval,pRno,pCate_no,pName,pMsg,SYSDATE, pId);
-	  COMMIT;
-	END;
- */
 	public void sul_replyInsert(AllReplyVO vo) {
 		try {
 			getConnection();
@@ -121,19 +88,6 @@ public class ReplyDAO {
 		}
 	}
 		
-/*
-	create or replace NONEDITIONABLE PROCEDURE sul_replyUpdate(
-	   pNo sul_all_reply_2_2.no%TYPE,
-	   pMsg sul_all_reply_2_2.msg%TYPE
-	)
-	IS
-	BEGIN
-	  UPDATE sul_all_reply_2_2 SET 
-	  msg=pMsg
-	  WHERE no=pNo;
-	  COMMIT;
-	END;
- */
 	public void sul_replyUpdate(int no, String msg) {
 		try {
 			getConnection();
@@ -149,17 +103,6 @@ public class ReplyDAO {
 			disConnection();
 		}
 	}
-/*
-	create or replace NONEDITIONABLE PROCEDURE sul_replyDelete(
-	   pNo sul_all_reply_2_2.no%TYPE
-	)
-	IS
-	BEGIN
-	  DELETE FROM sul_all_reply_2_2 
-	  WHERE no=pNo;
-	  COMMIT;
-	END;
- */
 	public void sul_replyDelete(int no) {
 		try {
 			getConnection();
