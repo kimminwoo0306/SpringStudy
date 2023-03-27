@@ -222,8 +222,11 @@ public class WineDAO {
       {
     	  return mapper.cartCount(id);
       }
-
-         
+	// top 5
+     public List<WineVO> wineTop5()
+      {
+    	  return mapper.wineTop5();
+      }       
 
    
 
