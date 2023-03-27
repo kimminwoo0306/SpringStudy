@@ -229,4 +229,9 @@ public interface WineMapper {
 	@Select("SELECT COUNT(*) FROM sul_item_2_2 where icno=2")
 	public int whiskeyCount();
 	
+	@Select("SELECT ino,name,price,poster,rownum "
+			  +"FROM (SELECT ino,name,price,poster "
+			  +"FROM sul_item_2_2 ORDER BY hit DESC) "
+			  +"WHERE rownum<=5")
+	public List<WineVO> wineTop5();
 }
