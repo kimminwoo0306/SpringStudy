@@ -25,5 +25,6 @@
    />
    
    <bean id="multipartResolver"  class="org.springframework.web.multipart.commons.CommonsMultipartResolver"/>
+   <aop:aspectj-autoproxy></aop:aspectj-autoproxy>
    
 </beans>
